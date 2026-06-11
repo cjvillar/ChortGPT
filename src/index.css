@@ -97,15 +97,7 @@ html, body, #root {
   padding: 6px 4px;
 }
 
-.sidebar-preview {
-  width: 52px;
-  height: 52px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #2a2a2a;
-  border: 1px solid #3a3a3a;
-  flex-shrink: 0;
-}
+
 
 .sidebar-vision-label {
   font-size: 12px;
@@ -171,6 +163,9 @@ html, body, #root {
   border: none;
   cursor: pointer;
   transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .header-clear-btn:hover { color: #f87171; }
 
@@ -361,22 +356,9 @@ html, body, #root {
   40%           { transform: translateY(-6px); }
 }
 
-/* Dog placeholder REPLACEME I want a new theme */
-.dog-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #2a2a2a;
-  user-select: none;
-}
 
-.dog-placeholder span:first-child { font-size: 28px; }
-.dog-placeholder span:last-child {
-  font-size: 8px;
-  font-family: monospace;
-  color: #555;
-  margin-top: 2px;
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

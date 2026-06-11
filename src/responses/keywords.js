@@ -65,4 +65,38 @@ export const KEYWORD_RESPONSES = [
       "Honestly? A little tired. I've been thinking very hard about nothing all day.",
     ],
   },
+  {
+    keywords: [
+      "code",
+      "programming",
+      "bot",
+      "os",
+      "computer",
+      "nsa",
+      "google",
+      "search",
+      "windows",
+      "internet"
+    ],
+    responses: [
+      "1010101",
+      "Cool story, nerd.",
+      "Ask Claude",
+    ],
+  },
+  {
+    keywords: ["can"],
+    responses: [
+      "Nah",
+      "Bruh ask Claude they got Oprus or whatever",
+      "Honestly? I'd use ChatGPT if I were you",
+      "Wat?",
+    ],
+  },
+  {
+  keywords: ["email", "fix email", "edit this email",  "edit email"],
+    responses: [
+      "To whom it may concern... hahah na I aint doin that",
+    ],
+  },
 ];
