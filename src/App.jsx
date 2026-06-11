@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { PlusCircle, Trash2, Clock, MessageSquare, Send, Paperclip, UserCircle, Sparkles } from "lucide-react";
 import { CANNED_RESPONSES, PHOTO_RESPONSES, KEYWORD_RESPONSES } from './responses';
 import { mergeImages } from './imageAgent'
-
+import { Shorts } from "./Shorts";
 
 //Response logic
 const getResponse = (input) => {
@@ -236,7 +236,7 @@ export default function ChortGPT() {
         <div className="message-list">
           {messages.map((msg, i) => (
             <div key={i} className={`message-row ${msg.role === "user" ? "message-row-user" : "message-row-ai"}`}>
-              {msg.role === "assistant" && <div className="avatar">🐄</div>}
+              {msg.role === "assistant" && <div className="avatar"><Shorts size={24} /></div>}
               <div className="message-content">
                 {msg.type === "text" && (
                   <div className={`bubble ${msg.role === "user" ? "bubble-user" : "bubble-ai"}`}>
@@ -269,7 +269,7 @@ export default function ChortGPT() {
 
           {isTyping && (
             <div className="message-row message-row-ai">
-              <div className="avatar">🐄</div>
+              <div className="avatar"><Shorts size={24}  /></div>
               <div className="bubble bubble-ai"><TypingDots /></div>
             </div>
           )}
