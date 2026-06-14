@@ -8,18 +8,5 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    obfuscatorPlugin({
-      apply: 'build',        // only runs on npm run build, not dev
-      exclude: [/node_modules/],
-      options: {
-        stringArray: true,           // pulls strings out into a hidden array
-        stringArrayEncoding: ['base64'],  
-        stringArrayThreshold: 0.75,
-        identifierNamesGenerator: 'hexadecimal', 
-        splitStrings: true,         
-        splitStringsChunkLength: 5,
-        selfDefending: false, 
-      },
-    }),
   ],
 })
