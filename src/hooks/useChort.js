@@ -152,9 +152,6 @@ export function useChort() {
         setInput("");
         setQuestionCount(c => c + 1);
         simulateResponse(false, trimmed);
-
-        // dismiss keyboard on mobile
-        textareaRef.current?.blur();
     };
 
     const handleAttach = (e) => {
