@@ -5,6 +5,20 @@ import { mergeImages } from '../imageAgent';
 
 const getResponse = (input) => {
     const lower = input.toLowerCase();
+
+    // fake math resp
+    if(/[+\-*/\\^=]/.test(lower)){
+        const random = Math.floor(Math.random() * 42);
+        const responses = [ // keep here for now
+            `Uh ${ random } ?`,
+            `I got ${ random }. What did you get?`,
+            `${ random }`,
+        ]
+
+        return responses[Math.floor(Math.random() * responses.length)];
+
+    }
+
     for (const entry of KEYWORD_RESPONSES) {
         if (entry.keywords.some(kw => lower.includes(kw))) {
             const pool = entry.responses;
