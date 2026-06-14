@@ -598,9 +598,18 @@ body,
 
 @media (max-width: 768px) {
 
-  html,
+
+  html {
+    height: -webkit-fill-available;
+  }
+
   body,
   #root {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .app-root {
     height: 100dvh;
     overflow: hidden;
   }
@@ -621,11 +630,6 @@ body,
   }
 
 
-  .app-root {
-    height: 100dvh;
-    overflow: hidden;
-    flex-direction: column;
-  }
 
   message-list {
     flex: 1;
