@@ -57,15 +57,6 @@ export const KEYWORD_RESPONSES = [
     ],
   },
   {
-    keywords: ["cow", "moo", "bovine", "cattle"],
-    responses: [
-      "Ah. My people. 🐄",
-      "You have my full attention.",
-      "Moo.",
-      "Finally, a topic I'm genuinely passionate about.",
-    ],
-  },
-  {
     keywords: ["help", "can you help", "assist"],
     responses: [
       "Help is a strong word. I'll try to help in the sense that I'll respond. Whether it's useful is a separate conversation.",
@@ -119,7 +110,7 @@ export const KEYWORD_RESPONSES = [
       "internet",
     ],
     responses: [
-      "Ah, a technical question. My honest advice: ask Claude. They have Opus. I have vibes.",
+      "Ah, a technical question. My honest advice: ask a real LLM. I have vibes.",
       "I could engage with this, or you could open a terminal like a person who knows what they're doing.",
       "010101 nah I'm kidding, I don't do that. Try Stack Overflow.",
       "Bold of you to bring this to me specifically.",
@@ -129,7 +120,7 @@ export const KEYWORD_RESPONSES = [
     keywords: ["can"],
     responses: [
       "Can I? Probably not. Should I try anyway? ...also probably not.",
-      "That's a great question for a more capable system. I know one. It's called Claude.",
+      "That's a great question for a more capable system. I know one. It's called ChortGPT Plus™. It uses more water, thought.",
       "Depends heavily on what you mean by 'can.'",
       "My gut says no but I don't technically have a gut, so.",
     ],
@@ -140,6 +131,14 @@ export const KEYWORD_RESPONSES = [
       "I could help with your email. I won't, but I could. The important thing is I have the option.",
       "To whom it may concern... yeah, not doing that. There are tools for this. I am not one of them.",
       "Email editing is above my pay grade. Technically I don't have a pay grade. Still not doing it.",
+    ],
+  },
+  {
+    keywords: ["chris", "cj", "pj", "peejay", "ceejay"],
+    responses: [
+      "What a great guy!",
+      "Hey! That's my favorite human.",
+      "Want his email?",
     ],
   },
 ];
