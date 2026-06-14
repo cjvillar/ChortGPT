@@ -1,7 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { CANNED_RESPONSES, PHOTO_RESPONSES, KEYWORD_RESPONSES, BAD_WORD_RESPONSES } from '../data/responses';
+import { CANNED_RESPONSES, PHOTO_RESPONSES, KEYWORD_RESPONSES, BAD_WORD_RESPONSES, HAPPY_RESPONSES, SAD_RESPONSES, QUESTION_RESPONSES, COMPLEX_RESPONSES } from '../data/responses';
 import { mergeImages } from '../imageAgent';
 import { Filter } from "bad-words";
+import Sentiment from 'sentiment';
+
+
+//Note to self: Might be time to refactor chort.js
+
+const sentimentAnalyzer = new Sentiment();
 
 const SAFE_PATTERN = /^[0-9+\-*/().\s^%]+$/; //allow basic ops 
 
@@ -31,21 +37,37 @@ const getMathResponse = (input) => {
 
 // catch bad words and respond
 const filter = new Filter();
-
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-const getResponse = (input) => {
-    const lower = input.toLowerCase();
 
+const getResponse = async (input) => {
+    const lower = input.toLowerCase();
+    // profanity
     if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES);
+    // math
     if (isMathExpression(lower)) return getMathResponse(lower);
 
     for (const entry of KEYWORD_RESPONSES) {
         if (entry.keywords.some(kw => lower.includes(kw))) return pick(entry.responses);
     }
 
+    // sentiment nokeywords match use sentiment
+    const { score } = sentimentAnalyzer.analyze(input);
+    if (score >= 3) return pick(HAPPY_RESPONSES);
+    if (score <= -3) return pick(SAD_RESPONSES);
+
+    // compromise lazy loaded 
+    const nlp = (await import('compromise')).default;
+    const doc = nlp(input);
+
+    if (doc.questions().length > 0) return pick(QUESTION_RESPONSES);
+    if (doc.nouns().length > 2) return pick(COMPLEX_RESPONSES);
+
+
+    // rand fallback responses
     return pick(CANNED_RESPONSES);
 };
+
 
 const getRandomPhotoIntro = () =>
     PHOTO_RESPONSES[Math.floor(Math.random() * PHOTO_RESPONSES.length)];
@@ -72,7 +94,7 @@ export function useChort() {
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
 
-    // token modal
+    // token usage modal
     const [questionCount, setQuestionCount] = useState(0);
     const [showLimitModal, setShowLimitModal] = useState(false);
 
@@ -128,16 +150,20 @@ export function useChort() {
 
     const simulateResponse = (hasAttachment, userText = "") => {
         setIsTyping(true);
-        setTimeout(() => {
-            setIsTyping(false);
-            if (hasAttachment) {
-                setMessages(prev => [...prev, { role: "assistant", type: "text", content: getRandomPhotoIntro() }]);
-            } else {
-                setMessages(prev => [...prev, { role: "assistant", type: "text", content: getResponse(userText) }]);
-            }
-        }, 1400 + Math.random() * 800);
-    };
 
+        const delay = 1400 + Math.random() * 800;
+
+        setTimeout(async () => {
+            const response = hasAttachment
+                ? getRandomPhotoIntro()
+                : await getResponse(userText);
+
+            setIsTyping(false);
+            setMessages(prev => [...prev, {
+                role: "assistant", type: "text", content: response
+            }]);
+        }, delay);
+    };
 
     const handleSend = () => {
         if (questionCount >= LIMIT) {
