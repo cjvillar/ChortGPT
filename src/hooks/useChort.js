@@ -57,6 +57,8 @@ const WELCOME = {
     content: "Welcome to ChortGPT — the world's most advanced AI assistant (legally distinct from all others). I am powered by cutting-edge Bovine Neural Architecture™. How can I pretend to help you today?",
 };
 
+const LIMIT = 3;
+
 const loadMessages = () => {
     try {
         const stored = localStorage.getItem(STORAGE_KEYS.messages);
@@ -73,10 +75,10 @@ export function useChort() {
     // token modal
     const [questionCount, setQuestionCount] = useState(0);
     const [showLimitModal, setShowLimitModal] = useState(false);
-    const LIMIT = 3;
 
     const attachInputRef = useRef(null);
     const bottomRef = useRef(null);
+    const textareaRef = useRef(null);
 
     useEffect(() => {
         try {
@@ -93,6 +95,21 @@ export function useChort() {
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, isTyping]);
+
+    useEffect(() => {
+        const handleFocusOut = (e) => {
+            // resets Safari window when leaving the textarea
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+                window.scrollTo(0, 0);
+            }
+        };
+
+        document.addEventListener('focusout', handleFocusOut);
+
+        return () => {
+            document.removeEventListener('focusout', handleFocusOut);
+        };
+    }, []);
 
     const resetToWelcome = (msg) => {
         const hasUserMessages = messages.some(m => m.role === "user");
@@ -121,7 +138,6 @@ export function useChort() {
         }, 1400 + Math.random() * 800);
     };
 
-    const textareaRef = useRef(null);
 
     const handleSend = () => {
         if (questionCount >= LIMIT) {

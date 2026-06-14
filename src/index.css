@@ -597,60 +597,63 @@ body,
 }
 
 /* Mobile */
-@media (max-width: 768px) { 
-  html { 
-    height: -webkit-fill-available; 
-  } 
-  
-  body, #root { 
-    height: 100svh; 
-    overflow: hidden; 
+@media (max-width: 768px) {
+  html {
+    height: -webkit-fill-available;
+  }
+
+  body,
+  #root {
+    height: 100dvh;
+    overflow: hidden;
     position: fixed;
     width: 100%;
     overscroll-behavior: none;
-  } 
+    top: 0;
+    left: 0;
+  }
 
-  .app-root { 
-    height: 100svh; 
-    overflow: hidden; 
+  .app-root {
+    height: 100dvh;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-  } 
+  }
 
-  .sidebar { 
-    position: fixed; 
-    left: 0; 
-    top: 0; 
-    height: 100%; 
-    z-index: 100; 
-    transform: translateX(-100%); 
-    transition: transform 0.2s ease; 
-    width: 100% !important; 
-  } 
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    width: 100% !important;
+  }
 
-  .sidebar.sidebar-open { 
-    transform: translateX(0); 
-  } 
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
 
- 
-  .message-list { 
-    flex: 1; 
-    min-height: 0; 
-    overflow-y: auto; 
-    -webkit-overflow-scrolling: touch; 
-  } 
 
-  .input-area { 
-    flex-shrink: 0; 
-    padding: 8px 12px 12px; 
-    position: relative; 
-  } 
+  .message-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-  .message-row { 
-    padding: 0 12px; 
-  } 
+  .input-area {
+    flex-shrink: 0;
+    padding: 8px 12px 12px;
+    position: relative;
+  }
 
-  .message-content { 
-    max-width: 85%; 
-  } 
+  .message-row {
+    padding: 0 12px;
+  }
+
+  .message-content {
+    max-width: 85%;
+  }
 }
