@@ -13,7 +13,7 @@ export default function ChortGPT() {
     setInput, setMessages,
     handleSend, handleAttach, handleKeyDown,
     resetToWelcome, showLimitModal,
-    setShowLimitModal,
+    setShowLimitModal,textareaRef,
   } = useChort();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -58,6 +58,7 @@ export default function ChortGPT() {
           onAttach={handleAttach}
           onKeyDown={handleKeyDown}
           attachInputRef={attachInputRef}
+          textareaRef={textareaRef}
         />
 
       </main>

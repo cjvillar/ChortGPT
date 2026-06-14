@@ -121,6 +121,8 @@ export function useChort() {
         }, 1400 + Math.random() * 800);
     };
 
+    const textareaRef = useRef(null);
+
     const handleSend = () => {
         if (questionCount >= LIMIT) {
             setShowLimitModal(true);
@@ -133,8 +135,10 @@ export function useChort() {
         setMessages(prev => [...prev, { role: "user", type: "text", content: trimmed }]);
         setInput("");
         setQuestionCount(c => c + 1);
-
         simulateResponse(false, trimmed);
+
+        // dismiss keyboard on mobile
+        textareaRef.current?.blur();
     };
 
     const handleAttach = (e) => {
@@ -181,6 +185,7 @@ export function useChort() {
         // refs
         attachInputRef,
         bottomRef,
+        textareaRef,
         // handlers
         setShowLimitModal,
         setInput,
