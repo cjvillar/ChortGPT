@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { useChort } from "./hooks/useChort";
-
 import Sidebar from "./components/Sidebar/Sidebar";
 import ChatHeader from "./components/Chat/ChatHeader";
 import MessageList from "./components/Chat/MessageList";
@@ -16,9 +16,17 @@ export default function ChortGPT() {
     setShowLimitModal,
   } = useChort();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
 
   return (
     <div className="app-root">
+
+
+      <div
+        className={`sidebar-backdrop ${sidebarOpen ? "active" : ""}`}
+        onClick={() => setSidebarOpen(false)}
+      />
 
       <Sidebar
         messages={messages}
@@ -27,12 +35,15 @@ export default function ChortGPT() {
         onNewChat={() => resetToWelcome("Fresh conversation! I've cleared my context window, which was basically empty anyway.")}
         onClearMessages={() => resetToWelcome("Messages cleared! Don't worry, I already forgot everything. I forget things instantly.")}
         onLoadChat={(msgs) => setMessages(msgs)}
+        mobileOpen={sidebarOpen}
+        onMobileClose={() => setSidebarOpen(false)}
       />
 
       <main className="flex-1 flex flex-col overflow-hidden">
 
-        <ChatHeader onClear={() => resetToWelcome("Messages cleared! Don't worry, I already forgot everything. I forget things instantly.")} />
-
+        <ChatHeader onClear={() => resetToWelcome("Messages cleared! Don't worry, I already forgot everything. I forget things instantly.")}
+          onMenuClick={() => setSidebarOpen(o => !o)}
+        />
 
         <MessageList
           messages={messages}

@@ -1,15 +1,27 @@
-import { useState } from "react";
-import { PlusCircle, Trash2, UserCircle, Sparkles, PanelLeft, PanelRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { PlusCircle, Trash2, UserCircle, Sparkles, PanelLeft, PanelRight, X } from "lucide-react";
 
-export default function Sidebar({ messages, chatHistory, isTyping, onNewChat, onClearMessages, onLoadChat }) {
+export default function Sidebar({ messages, chatHistory, isTyping, onNewChat, onClearMessages, onLoadChat, mobileOpen, onMobileClose }) {
   const [collapsed, setCollapsed] = useState(false);
 
+
   return (
-    <aside className={`sidebar ${collapsed ? "sidebar-collapsed" : ""}`}>
+    <aside className={`sidebar ${collapsed ? "sidebar-collapsed" : ""} ${mobileOpen ? "sidebar-open" : ""}`}>
       <div className="sidebar-logo">
         {!collapsed && <span className="sidebar-logo-icon">🩳</span>}
         {!collapsed && <span className="sidebar-logo-text">ChortGPT</span>}
-        <button className="sidebar-collapse-btn" onClick={() => setCollapsed(c => !c)}>
+
+
+        <button
+          className="sidebar-collapse-btn"
+          onClick={() => {
+            if (window.innerWidth <= 768) {
+              onMobileClose();
+            } else {
+              setCollapsed(c => !c);
+            }
+          }}
+        >
           {collapsed ? <PanelRight size={16} /> : <PanelLeft size={16} />}
         </button>
       </div>
