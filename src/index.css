@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 /* Reset */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   background-color: #212121;
   color: #ececec;
@@ -28,6 +30,8 @@ html, body, #root {
   border-right: 1px solid #2a2a2a;
   padding: 16px 12px;
   gap: 4px;
+  transition: width 0.2s ease;
+  overflow: hidden;
 }
 
 .sidebar-logo {
@@ -37,7 +41,9 @@ html, body, #root {
   padding: 8px 6px 16px;
 }
 
-.sidebar-logo-icon { font-size: 28px; }
+.sidebar-logo-icon {
+  font-size: 28px;
+}
 
 .sidebar-logo-text {
   font-size: 20px;
@@ -45,6 +51,45 @@ html, body, #root {
   letter-spacing: -0.5px;
   color: #fff;
 }
+
+.sidebar-collapsed {
+  width: 56px;
+  min-width: 56px;
+}
+
+.sidebar-collapsed .sidebar-btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 4px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-collapsed .sidebar-logo {
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.sidebar-collapse-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.sidebar-collapse-btn:hover {
+  color: #fff;
+  background: #2a2a2a;
+}
+
+
 
 .sidebar-btn {
   text-align: left;
@@ -58,9 +103,14 @@ html, body, #root {
   color: #ececec;
   transition: background 0.15s;
 }
-.sidebar-btn:hover { background: #2a2a2a; }
 
-.sidebar-btn-danger { color: #f87171; }
+.sidebar-btn:hover {
+  background: #2a2a2a;
+}
+
+.sidebar-btn-danger {
+  color: #f87171;
+}
 
 .sidebar-section-label {
   font-size: 11px;
@@ -81,7 +131,10 @@ html, body, #root {
   text-overflow: ellipsis;
   transition: background 0.15s;
 }
-.sidebar-item:hover { background: #2a2a2a; }
+
+.sidebar-item:hover {
+  background: #2a2a2a;
+}
 
 /* Sidebar footer */
 .sidebar-footer {
@@ -123,7 +176,10 @@ html, body, #root {
   cursor: pointer;
   transition: background 0.15s;
 }
-.sidebar-upload-btn:hover { background: #0d8f6e; }
+
+.sidebar-upload-btn:hover {
+  background: #0d8f6e;
+}
 
 /* Header */
 .chat-header {
@@ -167,11 +223,21 @@ html, body, #root {
   align-items: center;
   gap: 6px;
 }
-.header-clear-btn:hover { color: #f87171; }
+
+.header-clear-btn:hover {
+  color: #f87171;
+}
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* Messages */
@@ -191,8 +257,13 @@ html, body, #root {
   padding: 0 24px;
 }
 
-.message-row-user { justify-content: flex-end; }
-.message-row-ai   { justify-content: flex-start; }
+.message-row-user {
+  justify-content: flex-end;
+}
+
+.message-row-ai {
+  justify-content: flex-start;
+}
 
 .avatar {
   width: 34px;
@@ -214,7 +285,9 @@ html, body, #root {
   color: #fff;
 }
 
-.message-content { max-width: 70%; }
+.message-content {
+  max-width: 70%;
+}
 
 .bubble {
   border-radius: 16px;
@@ -308,7 +381,10 @@ html, body, #root {
   cursor: pointer;
   transition: color 0.15s;
 }
-.attach-btn:hover { color: #ccc; }
+
+.attach-btn:hover {
+  color: #ccc;
+}
 
 .chat-textarea {
   flex: 1;
@@ -323,7 +399,10 @@ html, body, #root {
   overflow-y: auto;
   font-family: inherit;
 }
-.chat-textarea::placeholder { color: #555; }
+
+.chat-textarea::placeholder {
+  color: #555;
+}
 
 .send-btn {
   width: 32px;
@@ -340,8 +419,15 @@ html, body, #root {
   justify-content: center;
   transition: opacity 0.2s, background 0.15s;
 }
-.send-btn:hover:not(:disabled) { background: #0d8f6e; }
-.send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.send-btn:hover:not(:disabled) {
+  background: #0d8f6e;
+}
+
+.send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 .disclaimer {
   text-align: center;
@@ -352,8 +438,16 @@ html, body, #root {
 
 /* Typing dots */
 @keyframes bounce {
-  0%, 80%, 100% { transform: translateY(0); }
-  40%           { transform: translateY(-6px); }
+
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-6px);
+  }
 }
 
 
@@ -361,4 +455,138 @@ html, body, #root {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+
+/* Usage limit modal*/
+/* Modal backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal card */
+.modal-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.modal-card p {
+  font-size: 14px;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.modal-card strong {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Icon circle */
+.modal-icon {
+  font-size: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Plan comparison table */
+.plan-compare {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.plan-compare-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.plan-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.plan-row .green {
+  color: #10a37f;
+  font-weight: 500;
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  background: #10a37f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover {
+  background: #0d8f6f;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover {
+  border-color: #555;
+  color: #fff;
+}
+
+/* Fine print */
+.fine-print {
+  font-size: 11px;
+  color: #555;
+  margin: 0;
 }

@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import ChatHeader from "./components/Chat/ChatHeader";
 import MessageList from "./components/Chat/MessageList";
 import { InputArea } from "./components/Chat/inputArea";
-
+import { PlanLimitModal } from "./components/Modals/PlanLimitModal";
 
 export default function ChortGPT() {
   const {
@@ -12,7 +12,8 @@ export default function ChortGPT() {
     attachInputRef, bottomRef,
     setInput, setMessages,
     handleSend, handleAttach, handleKeyDown,
-    resetToWelcome,
+    resetToWelcome, showLimitModal,
+    setShowLimitModal,
   } = useChort();
 
 
@@ -49,6 +50,16 @@ export default function ChortGPT() {
         />
 
       </main>
+
+      {showLimitModal && (
+        <PlanLimitModal
+          onClose={() => setShowLimitModal(false)}
+          onNewChat={() => {
+            setShowLimitModal(false);
+            resetToWelcome("Fresh conversation! ...");
+          }}
+        />
+      )}
     </div>
   );
 }
