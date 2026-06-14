@@ -597,6 +597,14 @@ body,
 }
 
 @media (max-width: 768px) {
+
+  html,
+  body,
+  #root {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
   .sidebar {
     position: fixed;
     left: 0;
@@ -615,15 +623,27 @@ body,
 
   .app-root {
     height: 100dvh;
+    overflow: hidden;
+    flex-direction: column;
   }
 
-  .message-list {
+  message-list {
     flex: 1;
-    overflow-y: auto;
     min-height: 0;
+    overflow-y: auto;
   }
 
   .input-area {
     flex-shrink: 0;
+    padding: 8px 12px 12px;
+  }
+
+
+  .message-row {
+    padding: 0 12px;
+  }
+
+  .message-content {
+    max-width: 85%;
   }
 }
