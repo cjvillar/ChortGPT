@@ -136,6 +136,9 @@ export function useChort() {
             const preview = ev.target.result;
             setMessages(prev => [...prev, { role: "user", type: "attachment", content: preview, filename: file.name }]);
             setIsTyping(true);
+
+             await new Promise(res => setTimeout(res, 600 + Math.random() * 500)); //small delay
+
             try {
                 const mergedImage = await mergeImages(preview);
                 setIsTyping(false);

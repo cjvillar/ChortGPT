@@ -1,4 +1,4 @@
-import overlayImg from "./assets/ovrlay.png";
+import overlayImg from "./assets/overlay.webp";
 // WIP
 const loadImage = (src) =>
   new Promise((resolve, reject) => {
@@ -25,10 +25,9 @@ export async function mergeImages(src1) {
   ctx.drawImage(img1, 0, 0, canvas.width, canvas.height);
 
   // blend overlay on top
-  ctx.globalAlpha = 1;                    // overlay transparency (0=invisible, 1=opaque)
   ctx.globalCompositeOperation = "multiply"; // blend
   ctx.drawImage(img2, 0, 0, canvas.width, canvas.height);
 
- return canvas.toDataURL("image/png");
+ return canvas.toDataURL("image/webp", 0.9); // 0.9 = 90% quality
  
 }

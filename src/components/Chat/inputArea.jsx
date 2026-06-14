@@ -7,7 +7,7 @@ export function InputArea({ input, onInputChange, onSend, onAttach, onKeyDown, a
         <button className="attach-btn" onClick={() => attachInputRef.current.click()} title="Attach file">
           <Paperclip size={18} />
         </button>
-        <input ref={attachInputRef} type="file" style={{ display: "none" }} onChange={onAttach} />
+        <input ref={attachInputRef} type="file"  accept="image/jpeg,image/png" style={{ display: "none" }} onChange={onAttach} />
         <textarea
           className="chat-textarea"
           placeholder="Message ChortGPT..."
