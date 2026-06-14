@@ -38,9 +38,11 @@ const getMathResponse = (input) => {
 // catch bad words and respond
 const filter = new Filter();
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const isQuestion = (str) => str.trim().endsWith("?");
+const hasLotsOfWords = (str) => str.trim().split(/\s+/).length > 6;
 
 
-const getResponse = async (input) => {
+const getResponse = (input) => {
     const lower = input.toLowerCase();
     // profanity
     if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES);
@@ -56,12 +58,8 @@ const getResponse = async (input) => {
     if (score >= 3) return pick(HAPPY_RESPONSES);
     if (score <= -3) return pick(SAD_RESPONSES);
 
-    // compromise lazy loaded 
-    const nlp = (await import('compromise')).default;
-    const doc = nlp(input);
-
-    if (doc.questions().length > 0) return pick(QUESTION_RESPONSES);
-    if (doc.nouns().length > 2) return pick(COMPLEX_RESPONSES);
+    if (isQuestion(input)) return pick(QUESTION_RESPONSES);
+    if (hasLotsOfWords(input)) return pick(COMPLEX_RESPONSES);
 
 
     // rand fallback responses
@@ -153,10 +151,10 @@ export function useChort() {
 
         const delay = 1400 + Math.random() * 800;
 
-        setTimeout(async () => {
+        setTimeout(() => {
             const response = hasAttachment
                 ? getRandomPhotoIntro()
-                : await getResponse(userText);
+                : getResponse(userText);
 
             setIsTyping(false);
             setMessages(prev => [...prev, {
