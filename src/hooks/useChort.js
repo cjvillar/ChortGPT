@@ -35,16 +35,16 @@ const filter = new Filter();
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const getResponse = (input) => {
-  const lower = input.toLowerCase();
+    const lower = input.toLowerCase();
 
-  if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES);
-  if (isMathExpression(lower)) return getMathResponse(lower);
+    if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES);
+    if (isMathExpression(lower)) return getMathResponse(lower);
 
-  for (const entry of KEYWORD_RESPONSES) {
-    if (entry.keywords.some(kw => lower.includes(kw))) return pick(entry.responses);
-  }
+    for (const entry of KEYWORD_RESPONSES) {
+        if (entry.keywords.some(kw => lower.includes(kw))) return pick(entry.responses);
+    }
 
-  return pick(CANNED_RESPONSES);
+    return pick(CANNED_RESPONSES);
 };
 
 const getRandomPhotoIntro = () =>
@@ -70,17 +70,26 @@ export function useChort() {
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
 
+    // token modal
+    const [questionCount, setQuestionCount] = useState(0);
+    const [showLimitModal, setShowLimitModal] = useState(false);
+    const LIMIT = 3;
+
     const attachInputRef = useRef(null);
     const bottomRef = useRef(null);
 
     useEffect(() => {
         try {
-            localStorage.setItem(STORAGE_KEYS.messages, JSON.stringify(messages));
+            const serialised = JSON.stringify(messages);
+            if (serialised.length > 500_000) {
+                console.warn("Messages too large to save, skipping localStorage");
+                return;
+            }
+            localStorage.setItem(STORAGE_KEYS.messages, serialised);
         } catch (error) {
             console.error("Failed to save to localStorage:", error);
         }
     }, [messages]);
-
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, isTyping]);
@@ -137,7 +146,7 @@ export function useChort() {
             setMessages(prev => [...prev, { role: "user", type: "attachment", content: preview, filename: file.name }]);
             setIsTyping(true);
 
-             await new Promise(res => setTimeout(res, 600 + Math.random() * 500)); //small delay
+            await new Promise(res => setTimeout(res, 600 + Math.random() * 500)); //small delay
 
             try {
                 const mergedImage = await mergeImages(preview);
@@ -160,10 +169,7 @@ export function useChort() {
         if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
     };
 
-    // token modal
-    const [questionCount, setQuestionCount] = useState(0);
-    const [showLimitModal, setShowLimitModal] = useState(false);
-    const LIMIT = 3;
+
 
     return {
         // state
