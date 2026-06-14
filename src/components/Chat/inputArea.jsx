@@ -20,7 +20,7 @@ export function InputArea({ input, onInputChange, onSend, onAttach, onKeyDown, a
           <Send size={16} />
         </button>
       </div>
-      <div className="disclaimer">ChortGPT may produce incorrect, absurd, or beef-related information. Results not guaranteed.</div>
+      <div className="disclaimer">ChortGPT definitely hallucinates. Results not guaranteed.</div>
     </div>
   );
 }

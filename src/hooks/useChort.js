@@ -1,31 +1,50 @@
 import { useState, useRef, useEffect } from "react";
-import { CANNED_RESPONSES, PHOTO_RESPONSES, KEYWORD_RESPONSES } from '../data/responses';
+import { CANNED_RESPONSES, PHOTO_RESPONSES, KEYWORD_RESPONSES, BAD_WORD_RESPONSES } from '../data/responses';
 import { mergeImages } from '../imageAgent';
+import { Filter } from "bad-words";
 
+const SAFE_PATTERN = /^[0-9+\-*/().\s^%]+$/; //allow basic ops 
+
+const isMathExpression = (str) => SAFE_PATTERN.test(str.trim());
+
+const getMathResponse = (input) => {
+    if (!SAFE_PATTERN.test(input.trim())) {
+        return "I tried the maths. The maths did not cooperate.";
+    }
+
+    try {
+        const result = Function(`"use strict"; return (${input.trim()})`)();
+        if (typeof result !== "number" || !isFinite(result)) {
+            return "I got a number but I don't trust it.";
+        }
+        const responses = [
+            `Uh... ${result}?`,
+            `I got ${result}. What did you get?`,
+            `${result}. Don't check my work.`,
+            `Pretty sure it's ${result}. I did the maths.`,
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    } catch {
+        return "I tried the maths. The maths did not cooperate.";
+    }
+};
+
+// catch bad words and respond
+const filter = new Filter();
+
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const getResponse = (input) => {
-    const lower = input.toLowerCase();
+  const lower = input.toLowerCase();
 
-    // fake math resp
-    if(/[+\-*/\\^=]/.test(lower)){
-        const random = Math.floor(Math.random() * 42);
-        const responses = [ // keep here for now
-            `Uh ${ random } ?`,
-            `I got ${ random }. What did you get?`,
-            `${ random }`,
-        ]
+  if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES);
+  if (isMathExpression(lower)) return getMathResponse(lower);
 
-        return responses[Math.floor(Math.random() * responses.length)];
+  for (const entry of KEYWORD_RESPONSES) {
+    if (entry.keywords.some(kw => lower.includes(kw))) return pick(entry.responses);
+  }
 
-    }
-
-    for (const entry of KEYWORD_RESPONSES) {
-        if (entry.keywords.some(kw => lower.includes(kw))) {
-            const pool = entry.responses;
-            return pool[Math.floor(Math.random() * pool.length)];
-        }
-    }
-    return CANNED_RESPONSES[Math.floor(Math.random() * CANNED_RESPONSES.length)];
+  return pick(CANNED_RESPONSES);
 };
 
 const getRandomPhotoIntro = () =>
