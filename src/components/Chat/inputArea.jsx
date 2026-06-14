@@ -17,7 +17,14 @@ export function InputArea({ input, onInputChange, onSend, onAttach, onKeyDown, a
                     onKeyDown={onKeyDown}
                     rows={1}
                 />
-                <button className="send-btn" onClick={onSend} disabled={!input.trim()}>
+                <button
+                    className="send-btn"
+                    onPointerDown={(e) => {
+                        e.preventDefault(); 
+                        onSend();
+                    }}
+                    disabled={!input.trim()}
+                >
                     <Send size={16} />
                 </button>
             </div>
