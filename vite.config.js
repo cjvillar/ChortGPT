@@ -18,7 +18,7 @@ export default defineConfig({
         identifierNamesGenerator: 'hexadecimal', 
         splitStrings: true,         
         splitStringsChunkLength: 5,
-        selfDefending: true,         // code resists reformatting
+        selfDefending: false, 
       },
     }),
   ],
