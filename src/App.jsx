@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useChort } from "./hooks/useChort";
+import { LIMIT } from "./hooks/useChatInput";
 import Sidebar from "./components/Sidebar/Sidebar";
 import ChatHeader from "./components/Chat/ChatHeader";
 import MessageList from "./components/Chat/MessageList";
@@ -70,6 +71,7 @@ export default function ChortGPT() {
             setShowLimitModal(false);
             resetToWelcome("Fresh conversation! ...");
           }}
+          limit={LIMIT}
         />
       )}
     </div>

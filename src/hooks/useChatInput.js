@@ -11,11 +11,20 @@ import {
 } from "../data/responses";
 import { Filter } from "bad-words";
 import { scoreSentiment } from "../utils/sentiment";
+import { getTimeOfDay } from "../utils/getTime";
+
 
 const filter = new Filter();
 
 const SAFE_PATTERN = /^[0-9+\-*/().\s^%]+$/;
-const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+//const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+export const pick = (arr, context = {}) => {
+    const item = arr[Math.floor(Math.random() * arr.length)];
+    return typeof item === "function" ? item(context) : item;
+};
+
+
 const isQuestion = (str) => str.trim().endsWith("?");
 const hasLotsOfWords = (str) => str.trim().split(/\s+/).length > 6;
 const isMathExpression = (str) => SAFE_PATTERN.test(str.trim());
@@ -43,32 +52,37 @@ const getMathResponse = (input) => {
 
 const getResponse = (input) => {
     const lower = input.toLowerCase();
+    const context = {
+        timeOfDay: getTimeOfDay(),
+        location: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    };
+
     // profanity
-    if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES);
+    if (filter.isProfane(lower)) return pick(BAD_WORD_RESPONSES, context);
     // math
     if (isMathExpression(lower)) return getMathResponse(lower);
 
     // keyword response
     for (const entry of KEYWORD_RESPONSES) {
-        if (entry.keywords.some((kw) => lower.includes(kw))) return pick(entry.responses);
+        if (entry.keywords.some((kw) => lower.includes(kw))) return pick(entry.responses, context);
     }
 
     // sentiment no keywords match use sentiment
     const score = scoreSentiment(input);
-    if (score >= 1) return pick(HAPPY_RESPONSES);
-    if (score <= -1) return pick(SAD_RESPONSES);
+    if (score >= 1) return pick(HAPPY_RESPONSES, context);
+    if (score <= -1) return pick(SAD_RESPONSES, context);
 
     //questions ending in ?
-    if (isQuestion(input)) return pick(QUESTION_RESPONSES);
-    if (hasLotsOfWords(input)) return pick(COMPLEX_RESPONSES);
+    if (isQuestion(input)) return pick(QUESTION_RESPONSES, context);
+    if (hasLotsOfWords(input)) return pick(COMPLEX_RESPONSES, context);
     // rand fallback responses
-    return pick(CANNED_RESPONSES);
+    return pick(CANNED_RESPONSES, context);
 };
 
 const getRandomPhotoIntro = () =>
     PHOTO_RESPONSES[Math.floor(Math.random() * PHOTO_RESPONSES.length)];
 
-const LIMIT = 3;
+export const LIMIT = 4;
 
 export function useChatInput(setMessages, setIsTyping) {
     const [input, setInput] = useState("");

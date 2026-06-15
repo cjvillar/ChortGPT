@@ -1,3 +1,6 @@
+import { getTimeOfDay } from "../../utils/getTime";
+
+
 export const KEYWORD_RESPONSES = [
   {
     keywords: ["time", "what time", "clock"],
@@ -5,15 +8,23 @@ export const KEYWORD_RESPONSES = [
       "I don't have access to real time data, which is a very polite way of saying I have absolutely no idea what time it is.",
       "Time is a construct. Also, I don't have a clock. Mostly the second thing.",
       "It's 5 O'Clock Somewhere",
+      (ctx) => `${ctx.timeOfDay}!`,
     ],
   },
   {
-    keywords: ["hello", "hi", "hey", "howdy", "sup", "what's up"],
+    keywords: ["hello", "hi", "hey", "howdy", "sup", "what's up, good morning, good evening, good night "],
     responses: [
+      (ctx) => `Good ${ctx.timeOfDay}!`,
       "Hello. I'm ChortGPT. I've been described as 'technically a chatbot' by people who were being generous.",
       "Oh, hi. I was just sitting here existing. What's on your mind?",
       "Hey! I'm ready to assist in the loosest possible interpretation of that word.",
       "Greetings. Let's see how this goes. (Historical precedent suggests: not great.)",
+    ],
+  },
+   {
+    keywords: ["where am i", "my location", "my timezone" ],
+    responses: [
+       (ctx) => `You're region is ${ctx.location}!`,
     ],
   },
   {
