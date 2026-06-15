@@ -1,10 +1,10 @@
-import { Trash2, Menu } from "lucide-react";
+import { Trash2, PanelRight } from "lucide-react";
 
 export default function ChatHeader({ onClear, onMenuClick }) {
   return (
     <header className="chat-header">
       <button className="menu-btn" onClick={onMenuClick}>
-        <Menu size={18} />
+        <PanelRight size={18} />
       </button>
       <span className="header-model-badge">ChortGPT-4o (Smort Edition)</span>
       <span className="header-status-dot" />

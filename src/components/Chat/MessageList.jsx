@@ -1,5 +1,5 @@
-import { Shorts } from "./shorts.jsx";
 import { useTyping } from "../../hooks/useTyping";
+import { Speech } from "lucide-react";
 
 const TypingDots = () => (
     <div style={{ display: "flex", gap: 5, alignItems: "center", padding: "4px 0" }}>
@@ -33,13 +33,8 @@ export default function MessageList({
         <div className="message-list">
             {messages.map((msg, i) => (
                 <div key={i} className={`message-row ${msg.role === "user" ? "message-row-user" : "message-row-ai"}`}>
-                    {msg.role === "assistant" && <div className="avatar"><Shorts size={24} /></div>}
+                    {msg.role === "assistant" && <div className="avatar">< Speech size={18} /></div>}
                     <div className="message-content">
-                        {/* {msg.type === "text" && (
-                            <div className={`bubble ${msg.role === "user" ? "bubble-user" : "bubble-ai"}`}>
-                                {msg.content}
-                            </div>
-                        )} */}
                          {msg.type === "text" && (
                             msg.role === "assistant"
                                 ? <AIBubble content={msg.content} isNew={msg.isNew} />
@@ -71,7 +66,7 @@ export default function MessageList({
 
             {isTyping && (
                 <div className="message-row message-row-ai">
-                    <div className="avatar"><Shorts size={24} /></div>
+                    <div className="avatar">< Speech size={18} /></div>
                     <div className="bubble bubble-ai"><TypingDots /></div>
                 </div>
             )}
