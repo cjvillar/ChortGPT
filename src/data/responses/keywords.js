@@ -24,7 +24,7 @@ export const KEYWORD_RESPONSES = [
    {
     keywords: ["where am i", "my location", "my timezone" ],
     responses: [
-       (ctx) => `You're region is ${ctx.location}!`,
+       (ctx) => `Your region is ${ctx.location}!`,
     ],
   },
   {
