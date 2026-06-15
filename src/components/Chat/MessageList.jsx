@@ -1,4 +1,5 @@
 import { Shorts } from "./shorts.jsx";
+import { useTyping } from "../../hooks/useTyping";
 
 const TypingDots = () => (
     <div style={{ display: "flex", gap: 5, alignItems: "center", padding: "4px 0" }}>
@@ -10,6 +11,16 @@ const TypingDots = () => (
         ))}
     </div>
 );
+
+
+function AIBubble({ content, isNew }) {
+    const displayed = useTyping(isNew ? content : null);
+    return (
+        <div className="bubble bubble-ai">
+            {isNew ? displayed : content}
+        </div>
+    );
+}
 
 
 export default function MessageList({
@@ -24,10 +35,15 @@ export default function MessageList({
                 <div key={i} className={`message-row ${msg.role === "user" ? "message-row-user" : "message-row-ai"}`}>
                     {msg.role === "assistant" && <div className="avatar"><Shorts size={24} /></div>}
                     <div className="message-content">
-                        {msg.type === "text" && (
+                        {/* {msg.type === "text" && (
                             <div className={`bubble ${msg.role === "user" ? "bubble-user" : "bubble-ai"}`}>
                                 {msg.content}
                             </div>
+                        )} */}
+                         {msg.type === "text" && (
+                            msg.role === "assistant"
+                                ? <AIBubble content={msg.content} isNew={msg.isNew} />
+                                : <div className="bubble bubble-user">{msg.content}</div>
                         )}
                         {msg.type === "attachment" && (
                             <div className="attach-bubble">

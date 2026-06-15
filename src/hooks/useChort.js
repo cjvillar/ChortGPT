@@ -102,7 +102,8 @@ export function useChort() {
 
     useEffect(() => {
         try {
-            const serialised = JSON.stringify(messages);
+            const serialised = JSON.stringify(
+            messages.map(m => ({ ...m, isNew: false })));
             if (serialised.length > 500_000) {
                 console.warn("Messages too large to save, skipping localStorage");
                 return;
@@ -117,20 +118,20 @@ export function useChort() {
     }, [messages, isTyping]);
 
     // safari keyboard blur adjust
-   useEffect(() => {
-    const handleFocusIn = (e) => {
-        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
-            setTimeout(() => {
-                bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, 100);
-        }
-    };
+    useEffect(() => {
+        const handleFocusIn = (e) => {
+            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+                setTimeout(() => {
+                    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+            }
+        };
 
-    document.addEventListener('focusin', handleFocusIn);
-    return () => {
-        document.removeEventListener('focusin', handleFocusIn);
-    };
-}, []);
+        document.addEventListener('focusin', handleFocusIn);
+        return () => {
+            document.removeEventListener('focusin', handleFocusIn);
+        };
+    }, []);
 
 
     const resetToWelcome = (msg) => {
@@ -160,7 +161,7 @@ export function useChort() {
 
             setIsTyping(false);
             setMessages(prev => [...prev, {
-                role: "assistant", type: "text", content: response
+                role: "assistant", type: "text", content: response, isNew: true,
             }]);
         }, delay);
     };
@@ -186,7 +187,7 @@ export function useChort() {
         const reader = new FileReader();
         reader.onload = async (ev) => {
             const preview = ev.target.result;
-            setMessages(prev => [...prev, { role: "user", type: "attachment", content: preview, filename: file.name }]);
+            setMessages(prev => [...prev, { role: "user", type: "attachment", content: preview, filename: file.name, isNew: true }]);
             setIsTyping(true);
 
             await new Promise(res => setTimeout(res, 600 + Math.random() * 500)); //small delay
