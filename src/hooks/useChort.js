@@ -74,7 +74,7 @@ const STORAGE_KEYS = { messages: "chortgpt_messages" };
 
 const WELCOME = {
     role: "assistant", type: "text",
-    content: "Welcome to ChortGPT — the world's most advanced AI assistant (legally distinct from all others). I am powered by cutting-edge Bovine Neural Architecture™. How can I pretend to help you today?",
+    content: "Welcome to ChortGPT — the world's most advanced AI assistant (legally distinct from all others). How can I pretend to help you today?",
 };
 
 const LIMIT = 3;
@@ -116,20 +116,22 @@ export function useChort() {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, isTyping]);
 
-    useEffect(() => {
-        const handleFocusOut = (e) => {
-            // resets Safari window when leaving the textarea
-            if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
-                window.scrollTo(0, 0);
-            }
-        };
+    // safari keyboard blur adjust
+   useEffect(() => {
+    const handleFocusIn = (e) => {
+        if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+            setTimeout(() => {
+                bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+        }
+    };
 
-        document.addEventListener('focusout', handleFocusOut);
+    document.addEventListener('focusin', handleFocusIn);
+    return () => {
+        document.removeEventListener('focusin', handleFocusIn);
+    };
+}, []);
 
-        return () => {
-            document.removeEventListener('focusout', handleFocusOut);
-        };
-    }, []);
 
     const resetToWelcome = (msg) => {
         const hasUserMessages = messages.some(m => m.role === "user");
