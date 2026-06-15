@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { PlusCircle, Trash2, UserCircle, Sparkles, PanelLeft, PanelRight, X } from "lucide-react";
+import { useState } from "react";
+import { PlusCircle, Trash2, UserCircle, Sparkles, PanelLeft, PanelRight} from "lucide-react";
 
 export default function Sidebar({ messages, chatHistory, isTyping, onNewChat, onClearMessages, onLoadChat, mobileOpen, onMobileClose }) {
   const [collapsed, setCollapsed] = useState(false);

@@ -4,7 +4,6 @@ export function useTyping(text, speed = 18) {
     const [displayed, setDisplayed] = useState("");
 
     useEffect(() => {
-        setDisplayed("");
         if (!text) return;
 
         let i = 0;
@@ -14,8 +13,11 @@ export function useTyping(text, speed = 18) {
             if (i >= text.length) clearInterval(interval);
         }, speed);
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+            setDisplayed(""); 
+        };
     }, [text, speed]);
 
-    return displayed;
+    return text ? displayed : "";
 }
