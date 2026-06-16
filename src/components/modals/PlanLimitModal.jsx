@@ -1,6 +1,12 @@
 import { HandCoins, Sparkles } from "lucide-react";
 
-export function PlanLimitModal({ onClose, onNewChat, limit }) {
+export function PlanLimitModal({ onClose, limit }) {
+
+  const handleClearAndRefresh = () => {
+    localStorage.clear(); 
+    window.location.reload();
+  };
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-card" onClick={e => e.stopPropagation()}>
@@ -13,7 +19,7 @@ export function PlanLimitModal({ onClose, onNewChat, limit }) {
           <div className="plan-row"><span>Chort Plus <Sparkles size={12} style={{ display: "inline", verticalAlign: "middle", color: "#10a37f" }} /></span><span className="green">Unlimited*</span></div>
         </div>
         <button className="btn-primary">Upgrade to Chort Plus</button>
-        <button className="btn-secondary" onClick={onNewChat}>Start a new chat instead</button>
+        <button className="btn-secondary" onClick={handleClearAndRefresh}>Start over instead</button>
         <p className="fine-print">*Subject to Chort™ Data Center capacity</p>
       </div>
     </div>

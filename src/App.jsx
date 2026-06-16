@@ -67,10 +67,6 @@ export default function ChortGPT() {
       {showLimitModal && (
         <PlanLimitModal
           onClose={() => setShowLimitModal(false)}
-          onNewChat={() => {
-            setShowLimitModal(false);
-            resetToWelcome("Fresh conversation! ...");
-          }}
           limit={LIMIT}
         />
       )}
