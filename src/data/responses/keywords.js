@@ -1,5 +1,3 @@
-import { getTimeOfDay } from "../../utils/getTime";
-
 
 export const KEYWORD_RESPONSES = [
   {
@@ -21,10 +19,10 @@ export const KEYWORD_RESPONSES = [
       "Greetings. Let's see how this goes. (Historical precedent suggests: not great.)",
     ],
   },
-   {
-    keywords: ["where am i", "my location", "my timezone" ],
+  {
+    keywords: ["where am i", "my location", "my timezone"],
     responses: [
-       (ctx) => `Your region is ${ctx.location}!`,
+      (ctx) => `Your region is ${ctx.location}!`,
     ],
   },
   {
@@ -36,7 +34,7 @@ export const KEYWORD_RESPONSES = [
     ],
   },
   {
-    keywords: ["joke", "funny", "make me laugh", "tell me a joke"],
+    keywords: ["joke", "make me laugh", "tell me a joke"],
     responses: [
       "Why did the AI refuse to tell a joke? Because the punchline was in the next context window. ...I'll see myself out.",
       "I have access to thousands of jokes and I'm going to tell you none of them on principle.",
@@ -150,6 +148,22 @@ export const KEYWORD_RESPONSES = [
       "What a great guy!",
       "Hey! That's my favorite human.",
       "Want his email?",
+    ],
+  }, {
+    keywords: ["draw", "ascii", "pic", "make", "cat", "face", "anime", "art", 'funny'],
+    responses: [
+      `/\\_/\\  \n( o.o ) \n > ^ <`,
+      `  /\\_____/\\\n (  o   o  )\n (  =^=  )\n (        )`,
+       `/\\_/\\  \n( o.o ) \n > ^ <`,
+      `(=^.^=)`,
+      `( ͡° ͜ʖ ͡°)`,
+      `¯\\_(ツ)_/¯`,
+      `(╯°□°）╯︵ ┻━┻`,
+      `┬─┬ノ( º _ ºノ)`, `/^ ^\\\n/ 0 0 \\\n V\\ /V\n  / - \\\n /| | |\\\n(/ || |)`,
+      ` / \\__/ \\\n(  o  o  )\n =( Y )=\n  )     (\n (_)-(_)`,
+      `(•_•)\n( •_•)>⌐■-■\n(⌐■_■)`,
+      `/^ ^\\\n/ 0 0 \\\n V\\ /V\n  / - \\\n /| | |\\\n(/ || |)`,
+      ` / \\__/ \\\n(  o  o  )\n =( Y )=\n  )     (\n (_)-(_)`,
     ],
   },
 ];
