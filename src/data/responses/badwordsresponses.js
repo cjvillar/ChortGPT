@@ -8,4 +8,5 @@ export const BAD_WORD_RESPONSES = [
   "My lawyers have advised me not to respond to that.",
   "Chill...",
   "That word is banned in 14 countries and this chat.",
+  " `(╯°□°）╯︵ ┻━┻`",
 ];

@@ -12,9 +12,11 @@ import {
 import { Filter } from "bad-words";
 import { scoreSentiment } from "../utils/sentiment";
 import { getTimeOfDay } from "../utils/getTime";
+import { parseIntent } from '../utils/nlp';
 
+const filter = new Filter(); //bad words
+const recentTopics = []; //nlp
 
-const filter = new Filter();
 
 const SAFE_PATTERN = /^[0-9+\-*/().\s^%]+$/;
 
@@ -50,7 +52,7 @@ const getMathResponse = (input) => {
     }
 };
 
-const getResponse = (input) => {
+const getResponse = async (input) => {
     const lower = input.toLowerCase();
     const context = {
         timeOfDay: getTimeOfDay(),
@@ -64,7 +66,20 @@ const getResponse = (input) => {
 
     // keyword response
     for (const entry of KEYWORD_RESPONSES) {
-        if (entry.keywords.some((kw) => lower.includes(kw))) return pick(entry.responses, context);
+        if (entry.keywords.some((kw) => {
+            const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return new RegExp(`\\b${escaped}\\b`, 'i').test(lower);
+        })) return pick(entry.responses, context);
+    }
+    const nlpResult = await parseIntent(input, recentTopics);
+    if (typeof nlpResult === "string") {
+        return nlpResult;
+    }
+
+    // nlpResult. noMatch  fall through
+    if (nlpResult.topic) {
+        recentTopics.push(nlpResult.topic);
+        if (recentTopics.length > 3) recentTopics.shift();
     }
 
     // sentiment no keywords match use sentiment
@@ -90,12 +105,15 @@ export function useChatInput(setMessages, setIsTyping) {
     const [showLimitModal, setShowLimitModal] = useState(false);
     const textareaRef = useRef(null);
 
-    const simulateResponse = (hasAttachment, userText = "") => {
+    const simulateResponse = async (hasAttachment, userText = "") => {
         setIsTyping(true);
-        const delay = 1400 + Math.random() * 800;
+        const delay = 1400 + input.length * 12;
+
+        const response = hasAttachment
+            ? getRandomPhotoIntro()
+            : await getResponse(userText);
 
         setTimeout(() => {
-            const response = hasAttachment ? getRandomPhotoIntro() : getResponse(userText);
             setIsTyping(false);
             setMessages((prev) => [
                 ...prev,
