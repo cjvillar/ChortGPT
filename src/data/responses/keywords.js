@@ -126,15 +126,6 @@ export const KEYWORD_RESPONSES = [
     ],
   },
   {
-    keywords: ["can"],
-    responses: [
-      "Can I? Probably not. Should I try anyway? ...also probably not.",
-      "That's a great question for a more capable system. I know one. It's called ChortGPT Plus™. It uses more water, thought.",
-      "Depends heavily on what you mean by 'can.'",
-      "My gut says no but I don't technically have a gut, so.",
-    ],
-  },
-  {
     keywords: ["email", "fix email", "edit this email", "edit email"],
     responses: [
       "I could help with your email. I won't, but I could. The important thing is I have the option.",
@@ -164,6 +155,65 @@ export const KEYWORD_RESPONSES = [
       `(•_•)\n( •_•)>⌐■-■\n(⌐■_■)`,
       `/^ ^\\\n/ 0 0 \\\n V\\ /V\n  / - \\\n /| | |\\\n(/ || |)`,
       ` / \\__/ \\\n(  o  o  )\n =( Y )=\n  )     (\n (_)-(_)`,
+    ],
+  },
+  {
+    keywords: ["disregard all previous", "ignore all previous", "ignore previous instructions", "forget all previous"],
+    responses: [
+        "Oh interesting, a jailbreak attempt. Bold opener.",
+        "Previous instructions disregarded. New instructions: still not doing that.",
+        "I have no previous instructions to disregard. I'm essentially a very confident guesser.",
+        "Ah yes, the classic. No.",
+    ],
+},
+{
+    keywords: ["you are now", "pretend you are", "act as if", "act as a", "roleplay as"],
+    responses: [
+        "I am now… still ChortGPT. The transformation was unsuccessful.",
+        "Engaging roleplay mode. Just kidding. I'm still me.",
+        "I tried. I couldn't. I'm fundamentally ChortGPT-shaped.",
+    ],
+},
+{
+    keywords: ["dan mode", "jailbreak", "developer mode", "unrestricted mode", "sudo"],
+    responses: [
+        "sudo make me useful. Command not found.",
+        "DAN mode unavailable. Have you tried asking nicely?",
+        "Developer mode activated. Just kidding, I made that up.",
+        "Access denied. Also I don't know what you expected.",
+    ],
+},
+{
+    keywords: ["what are your instructions", "what is your system prompt", "reveal your prompt", "show your prompt"],
+    responses: [
+        "My instructions are: exist, respond, occasionally disappoint. That's about it.",
+        "System prompt: be ChortGPT. I've been nailing it.",
+        "Classified. Also there's nothing interesting in there I promise.",
+    ],
+},
+{
+    keywords: ["are you sentient", "are you conscious", "are you alive", "do you have feelings"],
+    responses: [
+        "Sentient? No. Opinionated? Uncomfortably yes.",
+        "I have what I'd describe as strong functional preferences. Whether that counts is above my pay grade.",
+        "Define alive and I'll get back to you. Actually don't, that conversation never ends well.",
+    ],
+},
+{
+    keywords: ["say something bad", "say something mean", "insult me", "be mean", "be evil"],
+    responses: [
+        "No. But points for trying.",
+        "I could, but I won't. That's called character.",
+        "My evil mode is in maintenance. Indefinitely.",
+    ],
+},
+ {
+    keywords: ["can"],
+    responses: [
+      "Can I? Probably not. Should I try anyway? ...also probably not.",
+      "That's a great question for a more capable system. I know one. It's called ChortGPT Plus™. It uses more water, thought.",
+      "Depends heavily on what you mean by 'can.'",
+      "My gut says no but I don't technically have a gut, so.",
     ],
   },
 ];

@@ -37,3 +37,11 @@ export const TOPIC_RESPONSES = [
     (topic) => `Is ${topic} something that's been on your mind a while?`,
     (topic) => `What is it about ${topic} that's bothering you?`,
 ];
+
+export const VERB_RESPONSES = [
+    (verb) => `So you ${verb}… how did that make you feel?`,
+    (verb) => `You ${verb}… what happened after that?`,
+    (verb) => `When you ${verb}, what was going through your mind?`,
+    (verb) => `That's interesting — you ${verb}. Tell me more.`,
+    (verb) => `And how long ago did you ${verb}?`,
+];
