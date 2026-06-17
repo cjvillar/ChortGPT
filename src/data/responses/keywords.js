@@ -22,7 +22,8 @@ export const KEYWORD_RESPONSES = [
   {
     keywords: ["where am i", "my location", "my timezone"],
     responses: [
-      (ctx) => `Your region is ${ctx.location}!`,
+      (ctx) => `Near ${ctx.location.split('/')[1]}?`, 
+      (ctx) => `In ${ctx.location.split('/')[0]}?`,
     ],
   },
   {
